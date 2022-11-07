@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 
-import {SubscribedStackParamList} from '../SubscribedStack/SubscribedStack';
+import {PrayersTabsParamList} from '../PrayersTabs/PrayersTabs';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const Subscribed: FC<SubscribedStackProps> = () => {
@@ -15,6 +15,6 @@ const Subscribed: FC<SubscribedStackProps> = () => {
 export default Subscribed;
 
 type SubscribedStackProps = NativeStackScreenProps<
-  SubscribedStackParamList,
+  PrayersTabsParamList,
   'Subscribed'
 >;

@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {PrayersStackParamList} from '../MyPrayersStack/MyPrayersStack';
+import {ColumnStackParamList} from '../ColumnStack/ColumnStack';
 
-const PrayerScreen: FC<SubscribedStackProps> = () => {
+const PrayerScreen: FC<PrayerProps> = () => {
   return (
     <View>
       <Text>Prayer screen</Text>
@@ -14,7 +14,4 @@ const PrayerScreen: FC<SubscribedStackProps> = () => {
 
 export default PrayerScreen;
 
-type SubscribedStackProps = NativeStackScreenProps<
-  PrayersStackParamList,
-  'Prayer'
->;
+type PrayerProps = NativeStackScreenProps<ColumnStackParamList, 'PrayerScreen'>;
