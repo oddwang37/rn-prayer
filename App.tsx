@@ -8,36 +8,28 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
-import styled from 'styled-components/native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {MyDeskScreen, ColumnTabsNavigator} from './screens';
 
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export type RootStackParamList = {
+  MyDesk: undefined;
+  ColumnTabs: undefined;
+};
 
 const App = () => {
-
   return (
     <NavigationContainer>
-      <Root>
-        <Text>
-          Some some text
-        </Text>
-      </Root>
+      <Stack.Navigator>
+        <Stack.Screen name="MyDesk" component={MyDeskScreen} />
+        <Stack.Screen name="ColumnTabs" component={ColumnTabsNavigator} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const Root = styled.View`
-  background-color:  red;
-`
 
 export default App;

@@ -1,25 +1,27 @@
-import React from 'react'
-import { View, Text } from 'react-native';
-import styled from 'styled-components';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, {FC} from 'react';
+import {View, Text} from 'react-native';
+import styled from 'styled-components/native';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
 
-const Stack = createNativeStackNavigator();
-
-type RootStackParamList = {
-  Column: undefined;
+const MyDesk: FC<MyDeskProps> = ({navigation}) => {
+  return (
+    <Root>
+      <ButtonLink
+        activeOpacity={0.6}
+        underlayColor="#DDDDDD"
+        onPress={() => navigation.navigate('ColumnTabs')}>
+        <Text>Go to column</Text>
+      </ButtonLink>
+    </Root>
+  );
 };
 
-const MyDesk = () => {
-  return (
-    <Stack.Navigator>
-    <div>MyDesk</div>
-      
-    </Stack.Navigator>
-  )
-}
+export default MyDesk;
 
-export default MyDesk
+type MyDeskProps = NativeStackScreenProps<RootStackParamList, 'MyDesk'>;
 
-const Root = styled.div`
-    
-`
+const Root = styled.View``;
+const ButtonLink = styled.TouchableHighlight`
+  background-color: #9000de;
+`;
