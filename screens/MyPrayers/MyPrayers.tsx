@@ -4,8 +4,7 @@ import styled from 'styled-components/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {CompositeScreenProps} from '@react-navigation/native';
 
-import {PrayersStackParamList} from '../MyPrayersStack/MyPrayersStack';
-import {ColumnTabsParamList} from '../ColumnTabsNavigator/ColumnTabsNavigator';
+import {PrayersTabsParamList} from '../PrayersTabs/PrayersTabs';
 
 const MyPrayers: FC<MyPrayersProps> = ({navigation}) => {
   return (
@@ -13,7 +12,7 @@ const MyPrayers: FC<MyPrayersProps> = ({navigation}) => {
       <PrayerItem
         activeOpacity={0.6}
         underlayColor="#DDDDDD"
-        onPress={() => navigation.navigate('MyDesk')}>
+        onPress={() => navigation.navigate('PrayerScreen')}>
         <Text>First item</Text>
       </PrayerItem>
       <PrayerItem activeOpacity={0.6} underlayColor="#DDDDDD">
@@ -25,10 +24,7 @@ const MyPrayers: FC<MyPrayersProps> = ({navigation}) => {
 
 export default MyPrayers;
 
-type MyPrayersProps = NativeStackScreenProps<
-  PrayersStackParamList,
-  'MyPrayers'
->;
+type MyPrayersProps = NativeStackScreenProps<PrayersTabsParamList, 'MyPrayers'>;
 
 const PrayerItem = styled.TouchableHighlight`
   padding: 10px 15px;

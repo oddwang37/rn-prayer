@@ -12,13 +12,13 @@ import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {MyDeskScreen, ColumnTabsNavigator} from './screens';
+import {MyDeskScreen, PrayersTabs, ColumnStack} from './screens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
   MyDesk: undefined;
-  ColumnTabs: undefined;
+  ColumnStack: undefined;
 };
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="MyDesk" component={MyDeskScreen} />
-        <Stack.Screen name="ColumnTabs" component={ColumnTabsNavigator} />
+        <Stack.Screen name="ColumnStack" component={ColumnStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,7 +10,7 @@ const MyDesk: FC<MyDeskProps> = ({navigation}) => {
       <ButtonLink
         activeOpacity={0.6}
         underlayColor="#DDDDDD"
-        onPress={() => navigation.navigate('ColumnTabs')}>
+        onPress={() => navigation.navigate('ColumnStack')}>
         <Text>Go to column</Text>
       </ButtonLink>
     </Root>
