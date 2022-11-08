@@ -7,10 +7,9 @@ import {FormField, Button} from '../../components';
 const Login = () => {
   return (
     <Root>
-      <FormField label="Email" placeholder="Enter your email..." />
-      <FormField label="Name" placeholder="Enter your name..." />
-      <FormField label="Password" placeholder="Enter your password..." />
-      <Button onPress={() => alert('Login successful')}>Login</Button>
+      <FormField placeholder="Enter your email..." />
+      <FormField placeholder="Enter your password..." />
+      <Button onPress={() => alert('successfully signed up')}>Sign in</Button>
     </Root>
   );
 };

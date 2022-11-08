@@ -5,3 +5,4 @@ export {Subscribed} from './Subscribed';
 export {MyPrayers} from './MyPrayers';
 export {ColumnStack} from './ColumnStack';
 export {Login} from './Login';
+export {SignUp} from './SignUp';

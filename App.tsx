@@ -17,7 +17,7 @@ import {Provider} from 'react-redux';
 
 import {store} from './store/store';
 
-import {MyDeskScreen, PrayersTabs, ColumnStack, Login} from './screens';
+import {MyDeskScreen, ColumnStack, Login, SignUp} from './screens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -52,6 +52,7 @@ const App = () => {
               </>
             ) : (
               <>
+                <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="Login" component={Login} />
               </>
             )}
