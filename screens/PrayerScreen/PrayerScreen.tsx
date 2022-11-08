@@ -5,11 +5,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ColumnStackParamList} from '../ColumnStack/ColumnStack';
 
 const PrayerScreen: FC<PrayerProps> = () => {
-  return (
-    <View>
-      <Text>Prayer screen</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 export default PrayerScreen;
