@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import {useForm, FieldValues} from 'react-hook-form';
 import {Alert, Text} from 'react-native';
 
-import userCredentials from '../../services/userCredentials';
+import userSession from '../../services/userSession';
 
 import {FormField, Button} from '../../components';
 
@@ -17,14 +17,14 @@ const SignUp = () => {
   const {control, handleSubmit, watch} = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
-      email: 'zz',
+      email: '',
       name: '',
       password: '',
     },
   });
 
   const onSubmit = (data: FormValues) => {
-    Alert.alert(JSON.stringify(data));
+    alert(JSON.stringify(data));
   };
 
   return (
@@ -48,7 +48,6 @@ const SignUp = () => {
         placeholder="Enter your password..."
       />
       <Button onPress={() => handleSubmit(onSubmit)}>Sign Up</Button>
-      <Text>{JSON.stringify(watch())}</Text>
     </Root>
   );
 };
@@ -56,6 +55,6 @@ const SignUp = () => {
 export default SignUp;
 
 const Root = styled.View`
-  margin-top: 25%;
+  margin-top: 35%;
   padding: 0 30px;
 `;

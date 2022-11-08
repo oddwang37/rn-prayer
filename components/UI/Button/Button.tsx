@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 
 const Button: FC<ButtonProps> = ({children, onPress}) => {
   return (
-    <Root>
-      <ButtonText activeOpacity={0.6} underlayColor="#8e856d" onPress={onPress}>
+    <Root onPress={onPress} underlayColor="#978c6d" activeOpacity={0.6}>
+      <ButtonText activeOpacity={0.6} underlayColor="#8e856d">
         {children}
       </ButtonText>
     </Root>

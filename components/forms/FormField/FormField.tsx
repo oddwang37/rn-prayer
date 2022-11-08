@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
-import {View, Text} from 'react-native';
 import {useController, UseControllerProps, FieldValues} from 'react-hook-form';
 
 import {Input} from '../../UI/Input';
@@ -32,7 +31,7 @@ type FieldProps = {
 
 const Root = styled.View`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
 `;
 const Label = styled.Text`
   color: ${({theme}) => theme.colors.textColor};

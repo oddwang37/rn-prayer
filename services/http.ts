@@ -1,18 +1,20 @@
 import axios, {AxiosRequestConfig} from 'axios';
 // import keychain lib
 import _ from 'lodash';
-import userCredentials from './userCredentials';
+import userSession from './userSession';
 
-const _baseUrl = 'https://gscore-back.herokuapp.com/api/';
+const _baseUrl = 'prayer.herokuapp.com/api/';
 const instance = axios.create({
   baseURL: _baseUrl,
 });
 
 instance.interceptors.request.use(async config => {
+  const userInfo = await userSession.retrieve();
+  const {token} = userInfo;
   if (!config.headers) {
     config.headers = {};
   }
-  config.headers.Authorization = `Bearer ${userCredentials.get()}`;
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
