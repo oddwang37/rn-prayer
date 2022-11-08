@@ -7,12 +7,14 @@ import {Input} from '../../UI/Input';
 
 const FormField = <T extends FieldValues>(props: FormFieldProps<T>) => {
   const {name, label, placeholder, control} = props;
-  const {field} = useController<T>({name, control});
+  const {
+    field: {onChange, ...rest},
+  } = useController<T>({name, control});
 
   return (
     <Root>
       <Label>{label}</Label>
-      <Field placeholder={placeholder} {...field} />
+      <Field placeholder={placeholder} onChangeText={onChange} {...rest} />
     </Root>
   );
 };

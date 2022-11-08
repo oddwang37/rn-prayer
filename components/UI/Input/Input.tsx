@@ -1,14 +1,8 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
 
-const Input: FC<InputProps> = ({placeholder}) => {
-  return (
-    <Field
-      autoCapitalize="none"
-      selectionColor={'#72A8BC'}
-      placeholder={placeholder}
-    />
-  );
+const Input: FC<InputProps> = props => {
+  return <Field autoCapitalize="none" selectionColor={'#72A8BC'} {...props} />;
 };
 
 export default Input;
