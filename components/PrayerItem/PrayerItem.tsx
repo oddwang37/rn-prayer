@@ -47,6 +47,7 @@ const Indicator = styled.View`
 const Title = styled.Text`
   margin-left: 15px;
   font-size: 18px;
+  color: #514d47;
   flex: 5;
 `;
 const IconWrapper = styled.View`
