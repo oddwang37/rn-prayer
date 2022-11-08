@@ -5,7 +5,9 @@ import styled from 'styled-components/native';
 const Button: FC<ButtonProps> = ({children, onPress}) => {
   return (
     <Root>
-      <ButtonText onPress={onPress}>{children}</ButtonText>
+      <ButtonText activeOpacity={0.6} underlayColor="#8e856d" onPress={onPress}>
+        {children}
+      </ButtonText>
     </Root>
   );
 };
@@ -17,7 +19,7 @@ type ButtonProps = {
   onPress: () => void;
 };
 
-const Root = styled.TouchableOpacity`
+const Root = styled.TouchableHighlight`
   background-color: #bfb393;
   display: flex;
   justify-content: center;

@@ -13,6 +13,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ThemeProvider} from 'styled-components';
+import {Provider} from 'react-redux';
+
+import {store} from './store/store';
 
 import {MyDeskScreen, PrayersTabs, ColumnStack} from './screens';
 
@@ -34,12 +37,14 @@ const theme = {
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="MyDesk" component={MyDeskScreen} />
-          <Stack.Screen name="ColumnStack" component={ColumnStack} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="MyDesk" component={MyDeskScreen} />
+            <Stack.Screen name="ColumnStack" component={ColumnStack} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </ThemeProvider>
   );
 };
