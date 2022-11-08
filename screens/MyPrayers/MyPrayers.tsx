@@ -5,13 +5,14 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {PrayerItem} from '../../components';
 
 import {PrayersTabsParamList} from '../PrayersTabs/PrayersTabs';
-import {AddPrayerInput} from '../../components';
+import {AddPrayerInput, Button} from '../../components';
 
 const MyPrayers: FC<MyPrayersProps> = ({navigation}) => {
   return (
     <Root>
       <AddPrayerInput />
       <PrayerItem />
+      <Button>Show answered prayers</Button>
     </Root>
   );
 };

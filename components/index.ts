@@ -1,2 +1,2 @@
-export {Checkbox, Input, AddPrayerInput} from './UI';
+export {Checkbox, Input, AddPrayerInput, Button} from './UI';
 export {PrayerItem} from './PrayerItem';
