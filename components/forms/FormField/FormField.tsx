@@ -1,23 +1,31 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
 import {View, Text} from 'react-native';
+import {useController, UseControllerProps, FieldValues} from 'react-hook-form';
 
 import {Input} from '../../UI/Input';
 
-const FormField: FC<FormFieldProps> = ({label, placeholder}) => {
+const FormField = <T extends FieldValues>(props: FormFieldProps<T>) => {
+  const {name, label, placeholder, control} = props;
+  const {field} = useController<T>({name, control});
+
   return (
     <Root>
       <Label>{label}</Label>
-      <Field placeholder={placeholder} />
+      <Field placeholder={placeholder} {...field} />
     </Root>
   );
 };
 
 export default FormField;
 
-type FormFieldProps = {
+export type FormFieldProps<T extends FieldValues> = FieldProps &
+  UseControllerProps<T>;
+
+type FieldProps = {
   label?: string;
   placeholder?: string;
+  name: string;
 };
 
 const Root = styled.View`
