@@ -3,14 +3,13 @@ import axios, {AxiosRequestConfig} from 'axios';
 import _ from 'lodash';
 import userSession from './userSession';
 
-const _baseUrl = 'prayer.herokuapp.com/api/';
+const _baseUrl = 'https://prayer.herokuapp.com/';
 const instance = axios.create({
   baseURL: _baseUrl,
 });
 
 instance.interceptors.request.use(async config => {
-  const userInfo = await userSession.retrieve();
-  const {token} = userInfo;
+  const token = await userSession.retrieve();
   if (!config.headers) {
     config.headers = {};
   }
@@ -50,7 +49,5 @@ class Http {
 }
 
 const http = new Http();
-
-Object.freeze(Http);
 
 export default http;

@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import {useForm, FieldValues} from 'react-hook-form';
-import {Alert, Text} from 'react-native';
+import {useSelector} from 'react-redux';
 
 import userSession from '../../services/userSession';
+import {useAppDispatch, RootState} from '../../store/store';
+import {signUp} from '../../store/ducks/auth/thunks';
 
 import {FormField, Button} from '../../components';
+import {Text} from 'react-native-svg';
 
 interface FormValues extends FieldValues {
   email: string;
@@ -22,19 +25,23 @@ const SignUp = () => {
       password: '',
     },
   });
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data: FormValues) => {
-    alert(JSON.stringify(data));
+  const onSubmit = async () => {
+    const data = watch();
+    const {email, password, name} = data;
+    try {
+      const res = await dispatch(signUp({email, password, name})).unwrap();
+      console.log(res);
+      const token = await userSession.retrieve();
+      console.log(token, 'this is token');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <Root>
-      <FormField
-        control={control}
-        name="email"
-        label="Email"
-        placeholder="Enter your email..."
-      />
       <FormField
         control={control}
         name="name"
@@ -43,11 +50,18 @@ const SignUp = () => {
       />
       <FormField
         control={control}
+        name="email"
+        label="Email"
+        placeholder="Enter your email..."
+      />
+      <FormField
+        control={control}
         name="password"
         label="Password"
         placeholder="Enter your password..."
+        secureTextEntry={true}
       />
-      <Button onPress={() => handleSubmit(onSubmit)}>Sign Up</Button>
+      <Button onPress={onSubmit}>Sign Up</Button>
     </Root>
   );
 };

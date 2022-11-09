@@ -15,6 +15,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ThemeProvider} from 'styled-components';
 import {Provider} from 'react-redux';
 
+import useAuth from './hooks/useAuth';
 import {store} from './store/store';
 
 import {MyDeskScreen, ColumnStack, Login, SignUp} from './screens';
@@ -37,9 +38,9 @@ const theme = {
   },
 };
 
-const authToken = false;
-
 const App = () => {
+  const authToken = useAuth();
+
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>

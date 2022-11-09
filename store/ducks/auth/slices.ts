@@ -1,26 +1,37 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {signUp} from './thunks';
+import userSession from '../../../services/userSession';
 
 interface AuthState {
-  number: number;
+  username: string;
+  isAuth: boolean;
 }
 
 const initialState = {
-  number: 0,
+  username: '',
+  isAuth: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    addOne: state => {
-      state.number++;
+    setIsAuth: (state, action) => {
+      state.isAuth = action.payload;
     },
-    minusOne: state => {
-      state.number--;
-    },
+  },
+  extraReducers: builder => {
+    builder.addCase(signUp.pending, (state, action) => {
+      console.log('pending new');
+    });
+    builder.addCase(signUp.fulfilled, (state, action) => {
+      state.username = action.payload.name;
+      userSession.store(action.payload.token);
+      console.log(state.username);
+    });
   },
 });
 
-export const {addOne, minusOne} = authSlice.actions;
+export const {} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -2,13 +2,21 @@ import React, {FC} from 'react';
 import styled from 'styled-components/native';
 
 const Input: FC<InputProps> = props => {
-  return <Field autoCapitalize="none" selectionColor={'#72A8BC'} {...props} />;
+  return (
+    <Field
+      autoCapitalize="none"
+      selectionColor={'#72A8BC'}
+      secureTextEntry={props.secureTextEntry}
+      {...props}
+    />
+  );
 };
 
 export default Input;
 
 type InputProps = {
   placeholder?: string;
+  secureTextEntry?: boolean;
 };
 const Field = styled.TextInput`
   width: 100%;
