@@ -40,7 +40,6 @@ const theme = {
 
 const App = () => {
   const authToken = useAuth();
-
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>

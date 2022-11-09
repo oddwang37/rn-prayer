@@ -8,11 +8,13 @@ class UserSession {
   }
   async retrieve() {
     try {
-      const session = await EncryptedStorage.getItem('access_token');
-      if (session) {
-        return session;
+      const result = await EncryptedStorage.getItem('access_token');
+      if (result !== null) {
+        return result;
       }
-    } catch (error) {}
+    } catch (error) {
+      return null;
+    }
   }
   async remove() {
     try {

@@ -31,13 +31,8 @@ const SignUp = () => {
     const data = watch();
     const {email, password, name} = data;
     try {
-      const res = await dispatch(signUp({email, password, name})).unwrap();
-      console.log(res);
-      const token = await userSession.retrieve();
-      console.log(token, 'this is token');
-    } catch (e) {
-      console.log(e);
-    }
+      await dispatch(signUp({email, password, name})).unwrap();
+    } catch (e) {}
   };
 
   return (

@@ -7,7 +7,7 @@ interface AuthState {
   isAuth: boolean;
 }
 
-const initialState = {
+const initialState: AuthState = {
   username: '',
   isAuth: false,
 };
@@ -21,17 +21,15 @@ const authSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(signUp.pending, (state, action) => {
-      console.log('pending new');
-    });
+    builder.addCase(signUp.pending, (state, action) => {});
     builder.addCase(signUp.fulfilled, (state, action) => {
       state.username = action.payload.name;
       userSession.store(action.payload.token);
-      console.log(state.username);
+      state.isAuth = true;
     });
   },
 });
 
-export const {} = authSlice.actions;
+export const {setIsAuth} = authSlice.actions;
 
 export default authSlice.reducer;
