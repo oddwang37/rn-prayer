@@ -1,11 +1,11 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {PrayersTabs} from '../PrayersTabs';
+import {PrayersTabsStack} from '../PrayersTabsStack';
 import {PrayerScreen} from '../PrayerScreen';
 
 export type ColumnStackParamList = {
-  PrayersTabs: undefined;
+  PrayersTabsStack: undefined;
   PrayerScreen: undefined;
 };
 
@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator<ColumnStackParamList>();
 const ColumnStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="PrayersTabs" component={PrayersTabs} />
+      <Stack.Screen name="PrayersTabsStack" component={PrayersTabsStack} />
       <Stack.Screen name="PrayerScreen" component={PrayerScreen} />
     </Stack.Navigator>
   );
