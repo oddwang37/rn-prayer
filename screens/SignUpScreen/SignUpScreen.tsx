@@ -3,10 +3,12 @@ import styled from 'styled-components/native';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useForm, FieldValues} from 'react-hook-form';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSelector} from 'react-redux';
 
+import routes from '../../constants/routes';
 import colors from '../../constants/colors';
 import {RootStackParamList} from '../RootStack/RootStack';
-import {useAppDispatch} from '../../store/store';
+import {useAppDispatch, RootState} from '../../store/store';
 import {signUp} from '../../store/ducks/auth/thunks';
 
 import {FormField, Button} from '../../components';
@@ -17,7 +19,8 @@ interface FormValues extends FieldValues {
   password: string;
 }
 
-const SignUp: FC<SignUpProps> = () => {
+const SignUp: FC<SignUpProps> = ({navigation}) => {
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const {control, handleSubmit} = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -56,9 +59,14 @@ const SignUp: FC<SignUpProps> = () => {
         placeholder="Enter your password..."
         secureTextEntry={true}
       />
-      <Button onPress={handleSubmit(onSubmit)}>Sign Up</Button>
-      <Text style={styles.loginText}>Don't have an account?</Text>
-      <TouchableOpacity style={styles.loginLinkWrapper} activeOpacity={0.7}>
+      <Button onPress={handleSubmit(onSubmit)} isLoading={isLoading}>
+        Sign Up
+      </Button>
+      <Text style={styles.loginText}>Already have an account?</Text>
+      <TouchableOpacity
+        style={styles.loginLinkWrapper}
+        activeOpacity={0.7}
+        onPress={() => navigation.navigate(routes.login)}>
         <Text style={styles.loginLink}>Log In</Text>
       </TouchableOpacity>
     </Root>

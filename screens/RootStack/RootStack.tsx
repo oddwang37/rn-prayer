@@ -1,5 +1,8 @@
 import React, {useEffect} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackHeaderProps,
+} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 
 import {setIsAuth} from '../../store/ducks/auth';
@@ -10,6 +13,7 @@ import MyDeskScreen from '../MyDeskScreen/MyDeskScreen';
 import ColumnStack from '../ColumnStack/ColumnStack';
 import LoginScreen from '../LoginScreen/LoginScreen';
 import SignUpScreen from '../SignUpScreen/SignUpScreen';
+import {Header} from '../../components';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,17 +41,35 @@ const RootStack = () => {
   }, []);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        header: (props: NativeStackHeaderProps) => {
+          return <Header>{props.options.title || props.route.name}</Header>;
+        },
+      }}>
       {isAuth ? (
-        <>
-          <Stack.Screen name="MyDesk" component={MyDeskScreen} />
+        <Stack.Group>
+          <Stack.Screen
+            name="MyDesk"
+            component={MyDeskScreen}
+            options={{title: 'My Desk'}}
+          />
           <Stack.Screen name="ColumnStack" component={ColumnStack} />
-        </>
+        </Stack.Group>
       ) : (
-        <>
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-        </>
+        <Stack.Group screenOptions={{headerBackVisible: false}}>
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{title: 'Sign Up'}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{title: 'Log In'}}
+          />
+        </Stack.Group>
       )}
     </Stack.Navigator>
   );
