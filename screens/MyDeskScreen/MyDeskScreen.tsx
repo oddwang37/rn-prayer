@@ -1,20 +1,18 @@
 import React, {FC} from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
-import styled from 'styled-components/native';
+import {View, StyleSheet} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import colors from '../../constants/colors';
 import routes from '../../constants/routes';
 import {RootStackParamList} from '../RootStack/RootStack';
+import {ColumnItem} from '../../components';
 
 const MyDesk: FC<MyDeskProps> = ({navigation}) => {
   return (
-    <View>
-      <TouchableHighlight
-        activeOpacity={0.6}
-        underlayColor="#DDDDDD"
-        onPress={() => navigation.navigate(routes.columnStack)}>
-        <Text>Go to column</Text>
-      </TouchableHighlight>
+    <View style={styles.root}>
+      <ColumnItem>To Do</ColumnItem>
+      <ColumnItem>In Progress</ColumnItem>
+      <ColumnItem>Testing</ColumnItem>
     </View>
   );
 };
@@ -23,6 +21,12 @@ export default MyDesk;
 
 type MyDeskProps = NativeStackScreenProps<RootStackParamList, 'MyDesk'>;
 
-const styles = {
-  item: {},
-};
+const styles = StyleSheet.create({
+  root: {
+    padding: 15,
+    flex: 1,
+    backgroundColor: '#fff',
+    borderTopColor: colors.gray,
+    borderTopWidth: 1,
+  },
+});
