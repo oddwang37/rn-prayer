@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import routes from '../../constants/routes';
-import {RootStackParamList} from '../../App';
+import {RootStackParamList} from '../RootStack/RootStack';
 
 const MyDesk: FC<MyDeskProps> = ({navigation}) => {
   return (

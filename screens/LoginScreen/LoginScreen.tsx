@@ -1,8 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import React, {FC} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useForm, FieldValues} from 'react-hook-form';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import {RootStackParamList} from '../RootStack/RootStack';
 import {useAppDispatch} from '../../store/store';
 import {login} from '../../store/ducks/auth/thunks';
 
@@ -13,7 +14,7 @@ interface FormValues extends FieldValues {
   password: string;
 }
 
-const LoginScreen = () => {
+const LoginScreen: FC<LoginProps> = () => {
   const {control, handleSubmit} = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -48,6 +49,8 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+
+type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const styles = StyleSheet.create({
   form: {

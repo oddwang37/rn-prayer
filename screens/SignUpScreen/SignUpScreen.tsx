@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styled from 'styled-components/native';
 import {useForm, FieldValues} from 'react-hook-form';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import {RootStackParamList} from '../RootStack/RootStack';
 import {useAppDispatch} from '../../store/store';
 import {signUp} from '../../store/ducks/auth/thunks';
 
@@ -14,7 +16,7 @@ interface FormValues extends FieldValues {
   password: string;
 }
 
-const SignUp = () => {
+const SignUp: FC<SignUpProps> = () => {
   const {control, handleSubmit} = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -60,6 +62,8 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
 const Root = styled.View`
   margin-top: 35%;
