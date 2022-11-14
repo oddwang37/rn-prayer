@@ -3,17 +3,17 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {ColumnStackParamList} from '../ColumnStack/ColumnStack';
-import {MyPrayers} from '../MyPrayers';
-import {Subscribed} from '../Subscribed';
+import MyPrayers from './MyPrayersScreen/MyPrayersScreen';
+import Subscribed from './SubscribedScreen/SubscribedScreen';
 
-export type PrayersTabsParamList = {
+export type PrayersTabsStackParamList = {
   MyPrayers: undefined;
   Subscribed: undefined;
 };
 
-const Tab = createMaterialTopTabNavigator<PrayersTabsParamList>();
+const Tab = createMaterialTopTabNavigator<PrayersTabsStackParamList>();
 
-const ColumnScreen: FC<ColumnProps> = () => {
+const PrayersTabsStack: FC<ColumnProps> = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="MyPrayers" component={MyPrayers} />
@@ -22,6 +22,9 @@ const ColumnScreen: FC<ColumnProps> = () => {
   );
 };
 
-export default ColumnScreen;
+export default PrayersTabsStack;
 
-type ColumnProps = NativeStackScreenProps<ColumnStackParamList, 'PrayersTabs'>;
+type ColumnProps = NativeStackScreenProps<
+  ColumnStackParamList,
+  'PrayersTabsStack'
+>;

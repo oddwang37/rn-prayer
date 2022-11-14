@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 
-import {PrayersTabsParamList} from '../PrayersTabs/PrayersTabs';
+import {PrayersTabsStackParamList} from '../PrayersTabsStack';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-const Subscribed: FC<SubscribedStackProps> = () => {
+const SubscribedScreen: FC<SubscribedStackProps> = () => {
   return (
     <View>
       <Text>Subscribed page</Text>
@@ -12,9 +12,9 @@ const Subscribed: FC<SubscribedStackProps> = () => {
   );
 };
 
-export default Subscribed;
+export default SubscribedScreen;
 
 type SubscribedStackProps = NativeStackScreenProps<
-  PrayersTabsParamList,
+  PrayersTabsStackParamList,
   'Subscribed'
 >;

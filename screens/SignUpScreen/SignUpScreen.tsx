@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import {useForm, FieldValues} from 'react-hook-form';
-import {useSelector} from 'react-redux';
 
-import userSession from '../../services/userSession';
-import {useAppDispatch, RootState} from '../../store/store';
+import {useAppDispatch} from '../../store/store';
 import {signUp} from '../../store/ducks/auth/thunks';
 
 import {FormField, Button} from '../../components';
@@ -17,7 +15,7 @@ interface FormValues extends FieldValues {
 }
 
 const SignUp = () => {
-  const {control, handleSubmit, watch} = useForm<FormValues>({
+  const {control, handleSubmit} = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
       email: '',
@@ -27,8 +25,7 @@ const SignUp = () => {
   });
   const dispatch = useAppDispatch();
 
-  const onSubmit = async () => {
-    const data = watch();
+  const onSubmit = async (data: FormValues) => {
     const {email, password, name} = data;
     try {
       await dispatch(signUp({email, password, name})).unwrap();
@@ -56,7 +53,8 @@ const SignUp = () => {
         placeholder="Enter your password..."
         secureTextEntry={true}
       />
-      <Button onPress={onSubmit}>Sign Up</Button>
+      <Button onPress={handleSubmit(onSubmit)}>Sign Up</Button>
+      <Text>Already have an account?</Text>
     </Root>
   );
 };
@@ -66,4 +64,5 @@ export default SignUp;
 const Root = styled.View`
   margin-top: 35%;
   padding: 0 30px;
+  align-items: center;
 `;

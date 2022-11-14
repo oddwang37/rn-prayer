@@ -1,8 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
-import {RootState} from '../store/store';
 import userSession from '../services/userSession';
-import {setIsAuth as setIsAuthRedux} from '../store/ducks/auth';
 
 const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean | null>(false);

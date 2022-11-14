@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -18,7 +18,8 @@ import {Provider} from 'react-redux';
 import useAuth from './hooks/useAuth';
 import {store} from './store/store';
 
-import {MyDeskScreen, ColumnStack, Login, SignUp} from './screens';
+import {MyDeskScreen, ColumnStack, LoginScreen, SignUpScreen} from './screens';
+import userSession from './services/userSession';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -40,6 +41,9 @@ const theme = {
 
 const App = () => {
   const authToken = useAuth();
+  useEffect(() => {
+    userSession.remove();
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
@@ -52,8 +56,8 @@ const App = () => {
               </>
             ) : (
               <>
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} />
               </>
             )}
           </Stack.Navigator>
