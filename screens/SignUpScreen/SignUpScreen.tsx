@@ -1,14 +1,15 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useForm, FieldValues} from 'react-hook-form';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import colors from '../../constants/colors';
 import {RootStackParamList} from '../RootStack/RootStack';
 import {useAppDispatch} from '../../store/store';
 import {signUp} from '../../store/ducks/auth/thunks';
 
 import {FormField, Button} from '../../components';
-import {Text} from 'react-native-svg';
 
 interface FormValues extends FieldValues {
   email: string;
@@ -56,7 +57,10 @@ const SignUp: FC<SignUpProps> = () => {
         secureTextEntry={true}
       />
       <Button onPress={handleSubmit(onSubmit)}>Sign Up</Button>
-      <Text>Already have an account?</Text>
+      <Text style={styles.loginText}>Don't have an account?</Text>
+      <TouchableOpacity style={styles.loginLinkWrapper} activeOpacity={0.7}>
+        <Text style={styles.loginLink}>Log In</Text>
+      </TouchableOpacity>
     </Root>
   );
 };
@@ -70,3 +74,27 @@ const Root = styled.View`
   padding: 0 30px;
   align-items: center;
 `;
+
+const styles = StyleSheet.create({
+  form: {
+    marginTop: '50%',
+    paddingHorizontal: 30,
+  },
+  loginText: {
+    fontSize: 14,
+    color: '#bababa',
+    marginTop: 16,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  loginLinkWrapper: {
+    marginTop: 4,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  loginLink: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.primaryColor,
+  },
+});

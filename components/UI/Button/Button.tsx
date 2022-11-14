@@ -1,12 +1,17 @@
-import React, {FC, ButtonHTMLAttributes} from 'react';
-import {Alert} from 'react-native';
+import React, {FC} from 'react';
+import {ActivityIndicator} from 'react-native';
+import {Text} from 'react-native';
 import styled from 'styled-components/native';
 
-const Button: FC<ButtonProps> = ({children, onPress}) => {
+const Button: FC<ButtonProps> = ({children, onPress, isLoading}) => {
   return (
     <Root onPress={onPress} underlayColor="#978c6d" activeOpacity={0.6}>
       <ButtonText activeOpacity={0.6} underlayColor="#8e856d">
-        {children}
+        {isLoading ? (
+          <ActivityIndicator size="small" color="#fff" />
+        ) : (
+          <Text>{children}</Text>
+        )}
       </ButtonText>
     </Root>
   );
@@ -15,8 +20,9 @@ const Button: FC<ButtonProps> = ({children, onPress}) => {
 export default Button;
 
 type ButtonProps = {
-  children: React.ReactNode;
+  children: string;
   onPress: () => void;
+  isLoading?: boolean;
 };
 
 const Root = styled.TouchableHighlight`

@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {signUp, login} from './thunks';
 import userSession from '../../../services/userSession';
 
@@ -15,9 +15,12 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setIsAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
+    },
+  },
   extraReducers: builder => {
-    builder.addCase(signUp.pending, (state, action) => {});
     builder.addCase(signUp.fulfilled, (state, action) => {
       console.log(action.payload);
       state.username = action.payload.name;
@@ -32,6 +35,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const {setIsAuth} = authSlice.actions;
 
 export default authSlice.reducer;
