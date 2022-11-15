@@ -7,7 +7,7 @@ import MyPrayers from './MyPrayersScreen/MyPrayersScreen';
 import Subscribed from './SubscribedScreen/SubscribedScreen';
 
 export type PrayersTabsStackParamList = {
-  MyPrayers: undefined;
+  MyPrayers: {columnId: number; columnName: string};
   Subscribed: undefined;
 };
 
@@ -16,8 +16,16 @@ const Tab = createMaterialTopTabNavigator<PrayersTabsStackParamList>();
 const PrayersTabsStack: FC<ColumnProps> = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="MyPrayers" component={MyPrayers} />
-      <Tab.Screen name="Subscribed" component={Subscribed} />
+      <Tab.Screen
+        name="MyPrayers"
+        component={MyPrayers}
+        options={{title: 'MY PRAYERS'}}
+      />
+      <Tab.Screen
+        name="Subscribed"
+        component={Subscribed}
+        options={{title: 'SUBSCRIBED'}}
+      />
     </Tab.Navigator>
   );
 };

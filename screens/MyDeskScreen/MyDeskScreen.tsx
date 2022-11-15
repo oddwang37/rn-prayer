@@ -9,6 +9,7 @@ import {getAllColumns} from '../../store/ducks/columns/thunks';
 import {RootStackParamList} from '../RootStack/RootStack';
 
 import {ColumnItem, Spinner} from '../../components';
+import routes from '../../constants/routes';
 
 const MyDeskScreen: FC<MyDeskProps> = ({navigation}) => {
   const isLoading = useSelector((state: RootState) => state.columns.isLoading);
@@ -16,6 +17,8 @@ const MyDeskScreen: FC<MyDeskProps> = ({navigation}) => {
   const columns = useSelector((state: RootState) => state.columns.columns);
   const dispatch = useAppDispatch();
 
+  const capitalize = (value: string) =>
+    value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   const getColumns = async () => {
     try {
       await dispatch(getAllColumns());
@@ -35,7 +38,17 @@ const MyDeskScreen: FC<MyDeskProps> = ({navigation}) => {
       ) : (
         <ScrollView style={styles.root}>
           {columns.map(item => (
-            <ColumnItem key={item.id}>
+            <ColumnItem
+              key={item.id}
+              onPress={() =>
+                navigation.navigate(routes.columnStack, {
+                  screen: routes.prayersTabsStack,
+                  params: {
+                    columnId: item.id,
+                    columnName: capitalize(item.title),
+                  },
+                })
+              }>
               {item.title.toLocaleLowerCase()}
             </ColumnItem>
           ))}
