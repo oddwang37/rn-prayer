@@ -11,7 +11,7 @@ import {
 
 import rootReducer from './ducks';
 
-export const errorMiddlware: Middleware =
+export const errorMiddleware: Middleware =
   (api: MiddlewareAPI) =>
   (next: Dispatch) =>
   (action: any): AnyAction => {
@@ -26,6 +26,8 @@ export const errorMiddlware: Middleware =
 
 export const store = configureStore({
   reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(errorMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
