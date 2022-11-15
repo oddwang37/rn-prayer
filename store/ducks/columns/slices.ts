@@ -24,7 +24,6 @@ const columnsSlice = createSlice({
     });
     builder.addCase(getAllColumns.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
       state.columns = action.payload;
     });
     builder.addCase(getAllColumns.rejected, state => {

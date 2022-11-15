@@ -39,9 +39,7 @@ const RootStack = () => {
     const getToken = async () => {
       try {
         const result = await userSession.retrieve();
-        console.log(result);
         if (result) {
-          console.log(result);
           dispatch(setIsAuth(true));
         } else {
           dispatch(setIsAuth(false));

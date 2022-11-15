@@ -36,7 +36,6 @@ const authSlice = createSlice({
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
       const {name, token, id} = action.payload;
       state.username = name;
       userSession.store(token);
@@ -51,7 +50,6 @@ const authSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload, 'fulfilled state');
       const {id, token, name} = action.payload;
       state.userId = id;
       state.username = name;
