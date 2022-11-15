@@ -47,4 +47,5 @@ const Label = styled.Text`
 `;
 const Field = styled(Input)`
   margin-bottom: 0;
+  width: 100%;
 `;
