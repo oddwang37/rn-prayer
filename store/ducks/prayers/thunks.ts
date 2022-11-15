@@ -41,6 +41,7 @@ export const createPrayer = createAsyncThunk(
         checked: false,
         columnId: prayerInfo.columnId,
       };
+      console.log('req body', requestBody);
       const result = await http.post(API.createPrayer, requestBody);
       return result.data;
     } catch (err: any) {

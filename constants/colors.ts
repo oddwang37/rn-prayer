@@ -4,6 +4,7 @@ const colors = {
   secondaryColor: '#72A8BC',
   red: '#AC5253',
   gray: '#e5e5e5',
+  blue: '#72A8BC',
 } as const;
 
 export default colors;

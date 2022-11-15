@@ -1,21 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, FC} from 'react';
+import {FlatList} from 'react-native';
 import styled from 'styled-components/native';
 
 import {Checkbox} from '../UI';
 import User from '../../assets/icons/user3.svg';
 import Prayer from '../../assets/icons/Lists/Icons/prayer line.svg';
 
-const PrayerItem = () => {
+const PrayerItem: FC<PrayerItemProps> = ({title, id}) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const onChange = () => {
     setIsChecked(prev => !prev);
   };
 
+  const cutTitle = (title: string) =>
+    title.length > 17 ? title.slice(0, 17) + '...' : title;
+
   return (
     <Root>
       <Indicator />
       <Checkbox isChecked={isChecked} onChange={onChange} />
-      <Title>Prayer one title</Title>
+      <Title>{cutTitle(title)}</Title>
       <Icons>
         <IconWrapper>
           <User width={24} height={24} />
@@ -31,6 +35,11 @@ const PrayerItem = () => {
 };
 
 export default PrayerItem;
+
+type PrayerItemProps = {
+  title: string;
+  id: number;
+};
 
 const Root = styled.View`
   display: flex;
@@ -48,7 +57,7 @@ const Title = styled.Text`
   margin-left: 15px;
   font-size: 18px;
   color: #514d47;
-  flex: 5;
+  flex: 6;
 `;
 const IconWrapper = styled.View`
   display: flex;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
@@ -8,13 +8,13 @@ import {PrayerScreen} from './PrayerScreen';
 import {Header} from '../../components';
 
 export type ColumnStackParamList = {
-  PrayersTabsStack: undefined;
+  PrayersTabsStack: {columnId: number; columnName: string};
   PrayerScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<ColumnStackParamList>();
 
-const ColumnStack = () => {
+const ColumnStack: FC<ColumnStackProps> = ({route}) => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -26,6 +26,7 @@ const ColumnStack = () => {
       <Stack.Screen
         name="PrayersTabsStack"
         component={PrayersTabsStack}
+        initialParams={{columnId: route.params.columnId}}
         options={({route}) => ({title: route.params.columnName || route.name})}
       />
       <Stack.Screen name="PrayerScreen" component={PrayerScreen} />
@@ -35,4 +36,7 @@ const ColumnStack = () => {
 
 export default ColumnStack;
 
-type ColumnStack = NativeStackScreenProps<RootStackParamList, 'ColumnStack'>;
+type ColumnStackProps = NativeStackScreenProps<
+  RootStackParamList,
+  'ColumnStack'
+>;

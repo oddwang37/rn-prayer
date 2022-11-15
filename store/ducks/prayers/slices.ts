@@ -33,7 +33,18 @@ const prayersSlice = createSlice({
     });
     builder.addCase(createPrayer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.prayers.push(action.payload);
+      console.log('CREATE PRAYER RESULT', action.payload);
+      // action.payload field "column" returns all column info
+      const {checked, title, description, id, column} = action.payload;
+      const {id: columnId} = column;
+      state.prayers.push({
+        checked,
+        title,
+        description,
+        columnId,
+        id,
+        commentsIds: [],
+      });
     });
     builder.addCase(createPrayer.rejected, state => {
       state.isLoading = false;

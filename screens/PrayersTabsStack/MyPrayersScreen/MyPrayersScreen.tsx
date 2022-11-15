@@ -1,17 +1,49 @@
-import React, {FC} from 'react';
-import styled from 'styled-components/native';
+import React, {FC, useEffect} from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSelector} from 'react-redux';
+
+import {RootState, useAppDispatch} from '../../../store/store';
+import {getAllPrayers} from '../../../store/ducks/prayers/thunks';
+import {selectColumnPrayers} from '../../../store/ducks/prayers/selectors';
 
 import {PrayersTabsStackParamList} from '../PrayersTabsStack';
-import {AddPrayerInput, Button, PrayerItem} from '../../../components';
+import {AddPrayerInput, Button, PrayerItem, Spinner} from '../../../components';
+import {Prayer} from '../../../store/ducks/prayers/types';
 
-const MyPrayersScreen: FC<MyPrayersProps> = ({navigation}) => {
+const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
+  const columnId = route.params.columnId;
+  const isLoading = useSelector((state: RootState) => state.prayers.isLoading);
+  const prayers = useSelector((state: RootState) =>
+    selectColumnPrayers(state, columnId),
+  );
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllPrayers());
+  }, []);
+
+  const keyExtractor = (item: Prayer) => item.id.toString();
+
+  const renderItem = ({item}: {item: Prayer}) => (
+    <PrayerItem title={item.title} id={item.id}></PrayerItem>
+  );
   return (
-    <Root>
-      <AddPrayerInput />
-      <PrayerItem />
-      <Button onPress={() => {}}>Show answered prayers</Button>
-    </Root>
+    <View style={styles.root}>
+      <AddPrayerInput columnId={columnId} />
+      <View style={styles.content}>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <FlatList
+            data={prayers}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+          />
+        )}
+        <Button onPress={() => {}}>Show answered prayers</Button>
+      </View>
+    </View>
   );
 };
 
@@ -22,6 +54,13 @@ type MyPrayersProps = NativeStackScreenProps<
   'MyPrayers'
 >;
 
-const Root = styled.View`
-  padding: 15px;
-`;
+const styles = StyleSheet.create({
+  root: {
+    padding: 15,
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  content: {
+    marginTop: 15,
+  },
+});

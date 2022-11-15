@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
   MyDesk: undefined;
-  ColumnStack: undefined;
+  ColumnStack: {columnId: number; columnName: string};
   Login: undefined;
   SignUp: undefined;
 };
