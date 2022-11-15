@@ -1,11 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, StyleSheet, ScrollView} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 

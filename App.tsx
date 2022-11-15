@@ -9,12 +9,10 @@
  */
 
 import React from 'react';
-import {useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from 'styled-components';
 import {Provider} from 'react-redux';
-import userSession from './services/userSession';
 
 import {store} from './store/store';
 

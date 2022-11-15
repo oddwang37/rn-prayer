@@ -1,21 +1,25 @@
 import React, {FC} from 'react';
-import styled from 'styled-components/native';
 import {useForm, FieldValues} from 'react-hook-form';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, View} from 'react-native';
 
-import {useAppDispatch} from 'store/store';
+import {useAppDispatch} from '../../store/store';
+import {createColumn} from '../../store/ducks/columns/thunks';
 import {Button, FormField} from '../../components';
 import colors from '../../constants/colors';
 
 interface FormValues extends FieldValues {
   title: string;
 }
+
 const NewColumnModal: FC<NameEnterProps> = ({isVisible, closeModal}) => {
   const {control, handleSubmit} = useForm<FormValues>();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async ({title}: FormValues) => {
     closeModal();
+    await dispatch(createColumn(title));
   };
+
   return (
     <>
       {isVisible ? (
@@ -32,7 +36,7 @@ const NewColumnModal: FC<NameEnterProps> = ({isVisible, closeModal}) => {
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>Enter new column title</Text>
                 <FormField control={control} name="title" />
-                <Button onPress={() => {}}>Done</Button>
+                <Button onPress={handleSubmit(onSubmit)}>Done</Button>
               </View>
             </View>
           </Modal>
