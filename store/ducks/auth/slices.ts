@@ -4,12 +4,14 @@ import userSession from '../../../services/userSession';
 
 interface AuthState {
   username: string;
+  userId: number | null;
   isAuth: boolean;
   isLoading: boolean;
 }
 
 const initialState: AuthState = {
   username: '',
+  userId: null,
   isAuth: false,
   isLoading: false,
 };
@@ -21,6 +23,12 @@ const authSlice = createSlice({
     setIsAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
     },
+    logout: state => {
+      userSession.remove();
+      state.isAuth = false;
+      state.userId = null;
+      state.username = '';
+    },
   },
   extraReducers: builder => {
     builder.addCase(signUp.pending, state => {
@@ -29,8 +37,10 @@ const authSlice = createSlice({
     builder.addCase(signUp.fulfilled, (state, action) => {
       state.isLoading = false;
       console.log(action.payload);
-      state.username = action.payload.name;
-      userSession.store(action.payload.token);
+      const {name, token, id} = action.payload;
+      state.username = name;
+      userSession.store(token);
+      state.userId = id;
       state.isAuth = true;
     });
     builder.addCase(signUp.rejected, state => {
@@ -42,7 +52,10 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       console.log(action.payload, 'fulfilled state');
-      userSession.store(action.payload.token);
+      const {id, token, name} = action.payload;
+      state.userId = id;
+      state.username = name;
+      userSession.store(token);
       state.isAuth = true;
     });
     builder.addCase(login.rejected, (state, action) => {
@@ -51,6 +64,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {setIsAuth} = authSlice.actions;
+export const {setIsAuth, logout} = authSlice.actions;
 
 export default authSlice.reducer;

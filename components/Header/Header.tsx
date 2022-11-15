@@ -1,14 +1,11 @@
 import React, {FC} from 'react';
 import {Platform, Text, View, StyleSheet} from 'react-native';
+import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 
 import colors from '../../constants/colors';
 
 const Header: FC<HeaderProps> = ({children}) => {
-  return (
-    <View style={styles.root}>
-      <Text style={styles.text}>{children}</Text>
-    </View>
-  );
+  return <Text style={styles.text}>{children}</Text>;
 };
 
 export default Header;
@@ -18,17 +15,19 @@ type HeaderProps = {
 };
 
 const styles = StyleSheet.create({
-  root: {
-    paddingTop: Platform.OS === 'ios' ? 30 : 0,
-    backgroundColor: '#fff',
-  },
   text: {
     color: colors.textColor,
     fontSize: 18,
-    paddingTop: 22,
-    paddingBottom: 22,
-    fontWeight: '700',
+    paddingTop: Platform.OS === 'ios' ? 0 : 22,
+    paddingBottom: Platform.OS === 'ios' ? 0 : 22,
+    fontWeight: '600',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
 });
+
+/*   root: {
+    paddingTop: Platform.OS === 'ios' ? 30 : 0,
+    backgroundColor: '#fff',
+    position: 'relative',
+  }, */

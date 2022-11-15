@@ -20,3 +20,17 @@ export const getAllColumns = createAsyncThunk(
     }
   },
 );
+
+export const createColumn = createAsyncThunk(
+  'columns/get',
+  async (_, {rejectWithValue}) => {
+    try {
+      const result = await http.get(API.getAll);
+      return result.data;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  },
+);
