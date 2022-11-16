@@ -1,4 +1,4 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {createAsyncThunk, Update} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import http from '../../../services/http';
@@ -12,17 +12,36 @@ interface CreatePrayerReq extends CreatePrayerArgs {
   checked: boolean;
 }
 
+interface UpdatePrayerReq extends CreatePrayerReq {
+  id: number;
+}
+
 const API = {
   getAll: '/prayers',
   createPrayer: '/prayers',
   deletePrayer: '/prayers',
+  updatePrayer: '/prayers',
 };
 
 export const getAllPrayers = createAsyncThunk(
-  'prayers/get',
+  'prayers/get-all',
   async (_, {rejectWithValue}) => {
     try {
       const result = await http.get(API.getAll);
+      return result.data;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  },
+);
+
+export const getPrayerById = createAsyncThunk(
+  'prayers/get',
+  async (id: number, {rejectWithValue}) => {
+    try {
+      const result = await http.get(API.getAll + '/' + id);
       return result.data;
     } catch (err: any) {
       if (axios.isAxiosError(err) && err.response) {
@@ -56,6 +75,22 @@ export const deletePrayer = createAsyncThunk(
   async (prayerId: number, {rejectWithValue}) => {
     try {
       const result = await http.delete(API.deletePrayer + '/' + prayerId);
+      return result.data;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  },
+);
+
+export const updatePrayerChecked = createAsyncThunk(
+  'prayer/update-check',
+  async (prayerInfo: UpdatePrayerReq, {rejectWithValue}) => {
+    const {id, ...rest} = prayerInfo;
+    const requestBody = {...rest};
+    try {
+      const result = await http.put(API.updatePrayer + '/' + id, requestBody);
       return result.data;
     } catch (err: any) {
       if (axios.isAxiosError(err) && err.response) {

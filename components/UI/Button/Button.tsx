@@ -35,6 +35,7 @@ const Root = styled.TouchableHighlight`
   height: 30px;
   margin: 0 auto;
   margin-top: 20px;
+  margin-bottom: 20px;
   shadow-color: #000;
   shadow-offset: 0px 2px;
   shadow-opacity: 0.25;
