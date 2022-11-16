@@ -1,5 +1,12 @@
 import React, {FC, useEffect} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Animated,
+  Text,
+  I18nManager,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 
@@ -30,12 +37,15 @@ const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
   );
   return (
     <View style={styles.root}>
-      <AddPrayerInput columnId={columnId} />
+      <View style={styles.addPrayerWrapper}>
+        <AddPrayerInput columnId={columnId} />
+      </View>
       <View style={styles.content}>
         {isLoading ? (
           <Spinner />
         ) : (
           <FlatList
+            style={styles.content}
             data={prayers}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
@@ -56,11 +66,12 @@ type MyPrayersProps = NativeStackScreenProps<
 
 const styles = StyleSheet.create({
   root: {
-    padding: 15,
+    paddingVertical: 15,
     backgroundColor: '#fff',
     flex: 1,
   },
-  content: {
-    marginTop: 15,
+  content: {},
+  addPrayerWrapper: {
+    padding: 15,
   },
 });

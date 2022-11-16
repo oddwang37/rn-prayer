@@ -15,6 +15,7 @@ interface CreatePrayerReq extends CreatePrayerArgs {
 const API = {
   getAll: '/prayers',
   createPrayer: '/prayers',
+  deletePrayer: '/prayers',
 };
 
 export const getAllPrayers = createAsyncThunk(
@@ -41,8 +42,20 @@ export const createPrayer = createAsyncThunk(
         checked: false,
         columnId: prayerInfo.columnId,
       };
-      console.log('req body', requestBody);
       const result = await http.post(API.createPrayer, requestBody);
+      return result.data;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  },
+);
+export const deletePrayer = createAsyncThunk(
+  'prayer/delete',
+  async (prayerId: number, {rejectWithValue}) => {
+    try {
+      const result = await http.delete(API.deletePrayer + '/' + prayerId);
       return result.data;
     } catch (err: any) {
       if (axios.isAxiosError(err) && err.response) {

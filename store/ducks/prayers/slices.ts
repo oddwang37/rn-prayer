@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {shouldUseActivityState} from 'react-native-screens';
 
-import {getAllPrayers, createPrayer} from './thunks';
+import {getAllPrayers, createPrayer, deletePrayer} from './thunks';
 import {Prayer} from './types';
 
 interface PrayersState {
@@ -48,6 +49,11 @@ const prayersSlice = createSlice({
     });
     builder.addCase(createPrayer.rejected, state => {
       state.isLoading = false;
+    });
+    builder.addCase(deletePrayer.fulfilled, (state, action) => {
+      state.prayers = state.prayers.filter(
+        prayer => prayer.id !== action.payload.id,
+      );
     });
   },
 });

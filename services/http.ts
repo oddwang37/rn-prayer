@@ -46,6 +46,9 @@ class Http {
   ) {
     return await instance.put(endpoint, requestBody, config);
   }
+  async delete(endpoint: string, config: AxiosRequestConfig = {}) {
+    return await instance.delete(endpoint, config);
+  }
 }
 
 const http = new Http();
