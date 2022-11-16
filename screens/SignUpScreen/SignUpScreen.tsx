@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useForm, FieldValues} from 'react-hook-form';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';

@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  createNativeStackNavigator,
-  NativeStackHeaderProps,
-} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 
 import {setIsAuth} from '../../store/ducks/auth';
@@ -21,7 +18,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
   MyDesk: undefined;
-  ColumnStack: undefined;
+  ColumnStack: {columnId: number; columnName: string};
   Login: undefined;
   SignUp: undefined;
 };
@@ -72,9 +69,14 @@ const RootStack = () => {
                     <Plus />
                   </HeaderButton>
                 ),
+                headerShadowVisible: false,
               }}
             />
-            <Stack.Screen name="ColumnStack" component={ColumnStack} />
+            <Stack.Screen
+              name="ColumnStack"
+              component={ColumnStack}
+              options={{headerShown: false}}
+            />
           </Stack.Group>
         ) : (
           <Stack.Group screenOptions={{headerBackVisible: false}}>

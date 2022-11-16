@@ -8,15 +8,17 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from 'styled-components';
 import {Provider} from 'react-redux';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import {store} from './store/store';
 
 import {RootStack} from './screens/RootStack';
+import userSession from './services/userSession';
 
 const theme = {
   colors: {
@@ -32,7 +34,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <NavigationContainer>
-          <RootStack />
+          <GestureHandlerRootView style={{flex: 1}}>
+            <RootStack />
+          </GestureHandlerRootView>
         </NavigationContainer>
       </Provider>
     </ThemeProvider>

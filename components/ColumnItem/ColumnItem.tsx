@@ -3,9 +3,9 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 import colors from '../../constants/colors';
 
-const ColumnItem: FC<ColumnItem> = ({children}) => {
+const ColumnItem: FC<ColumnItem> = ({children, onPress}) => {
   return (
-    <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.item} activeOpacity={0.7} onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
     </TouchableOpacity>
   );
@@ -15,6 +15,7 @@ export default ColumnItem;
 
 type ColumnItem = {
   children: string;
+  onPress: () => void;
 };
 
 const styles = StyleSheet.create({

@@ -6,6 +6,7 @@ module.exports = {
       {
         root: ['./'],
       },
+      'react-native-reanimated/plugin',
     ],
   ],
 };

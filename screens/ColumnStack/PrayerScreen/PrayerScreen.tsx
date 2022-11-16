@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {ColumnStackParamList} from '../ColumnStack/ColumnStack';
+import {ColumnStackParamList} from '../ColumnStack';
 
 const PrayerScreen: FC<PrayerProps> = () => {
   return <View></View>;
