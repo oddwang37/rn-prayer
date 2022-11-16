@@ -102,8 +102,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 23,
-    paddingHorizontal: 15,
+    marginHorizontal: 15,
     backgroundColor: '#fff',
+    borderTopColor: colors.gray,
+    borderBottomColor: colors.gray,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   leftAction: {
     flex: 0.2,
