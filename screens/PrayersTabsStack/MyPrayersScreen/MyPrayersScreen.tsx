@@ -51,6 +51,7 @@ const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
       ) : (
         <View>
           <FlatList
+            style={styles.content}
             data={uncheckedPrayers}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
@@ -62,6 +63,7 @@ const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
           )}
           {isCheckedVisible && (
             <FlatList
+              style={styles.content}
               data={checkedPrayers}
               renderItem={renderItem}
               keyExtractor={keyExtractor}
@@ -88,5 +90,9 @@ const styles = StyleSheet.create({
   },
   addPrayerWrapper: {
     padding: 15,
+  },
+  content: {
+    paddingTop: 15,
+    paddingBottom: 15,
   },
 });

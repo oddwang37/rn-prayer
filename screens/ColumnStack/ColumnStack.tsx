@@ -5,7 +5,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from 'screens/RootStack/RootStack';
 import {PrayersTabsStack} from '../PrayersTabsStack';
 import {PrayerScreen} from './PrayerScreen';
-import {Header} from '../../components';
+import {Header, HeaderButton} from '../../components';
+import {Settings} from '../../components/svg';
 
 export type ColumnStackParamList = {
   PrayersTabsStack: {columnId: number; columnName: string};
@@ -27,7 +28,14 @@ const ColumnStack: FC<ColumnStackProps> = ({route}) => {
         name="PrayersTabsStack"
         component={PrayersTabsStack}
         initialParams={{columnId: route.params.columnId}}
-        options={({route}) => ({title: route.params.columnName || route.name})}
+        options={({route}) => ({
+          title: route.params.columnName || route.name,
+          headerRight: () => (
+            <HeaderButton onPress={() => alert('settings')}>
+              <Settings />
+            </HeaderButton>
+          ),
+        })}
       />
       <Stack.Screen name="PrayerScreen" component={PrayerScreen} />
     </Stack.Navigator>
