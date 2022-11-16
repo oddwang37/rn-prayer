@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
-import {View, Text, Animated, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
 
 import {
@@ -15,7 +15,12 @@ import User from '../../assets/icons/user3.svg';
 import Prayer from '../../assets/icons/Lists/Icons/prayer line.svg';
 import colors from '../../constants/colors';
 
-const PrayerItem: FC<PrayerItemProps> = ({title, prayerId, isChecked}) => {
+const PrayerItem: FC<PrayerItemProps> = ({
+  title,
+  prayerId,
+  isChecked,
+  onPress,
+}) => {
   const dispatch = useAppDispatch();
 
   const cutTitle = (title: string) =>
@@ -53,7 +58,10 @@ const PrayerItem: FC<PrayerItemProps> = ({title, prayerId, isChecked}) => {
 
   return (
     <Swipeable rightThreshold={60} renderRightActions={renderRightActions}>
-      <View style={styles.root}>
+      <TouchableOpacity
+        style={styles.root}
+        activeOpacity={0.6}
+        onPress={onPress}>
         <Indicator />
         <Checkbox isChecked={isChecked} onChange={onChangeCheckbox} />
         <Text
@@ -73,7 +81,7 @@ const PrayerItem: FC<PrayerItemProps> = ({title, prayerId, isChecked}) => {
             <Quantity>157</Quantity>
           </IconWrapper>
         </Icons>
-      </View>
+      </TouchableOpacity>
     </Swipeable>
   );
 };
@@ -84,6 +92,7 @@ type PrayerItemProps = {
   title: string;
   prayerId: number;
   isChecked: boolean;
+  onPress: () => void;
 };
 const Indicator = styled.View`
   height: 22px;

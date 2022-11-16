@@ -29,3 +29,10 @@ export const selectColumnPrayersUnchecked = createSelector(
     return uncheckedPrayers.filter(prayer => columnId === prayer.columnId);
   },
 );
+
+export const selectPrayerById = createSelector(
+  [getAllPrayers, (state: RootState, prayerId: number) => prayerId],
+  (allPrayers, prayerId) => {
+    return allPrayers.find(prayer => prayerId === prayer.id);
+  },
+);
