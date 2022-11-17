@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
-import {View, Text, Animated, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
 
 import {
@@ -15,11 +15,13 @@ import User from '../../assets/icons/user3.svg';
 import Prayer from '../../assets/icons/Lists/Icons/prayer line.svg';
 import colors from '../../constants/colors';
 
-const PrayerItem: FC<PrayerItemProps> = ({title, prayerId, isChecked}) => {
+const PrayerItem: FC<PrayerItemProps> = ({
+  title,
+  prayerId,
+  isChecked,
+  onPress,
+}) => {
   const dispatch = useAppDispatch();
-
-  const cutTitle = (title: string) =>
-    title.length > 17 ? title.slice(0, 17) + '...' : title;
 
   const onPressDelete = async () => {
     try {
@@ -53,15 +55,19 @@ const PrayerItem: FC<PrayerItemProps> = ({title, prayerId, isChecked}) => {
 
   return (
     <Swipeable rightThreshold={60} renderRightActions={renderRightActions}>
-      <View style={styles.root}>
-        <Indicator />
+      <TouchableOpacity
+        style={styles.root}
+        activeOpacity={0.6}
+        onPress={onPress}>
+        <View style={styles.indicator} />
         <Checkbox isChecked={isChecked} onChange={onChangeCheckbox} />
         <Text
+          numberOfLines={1}
           style={[
             styles.title,
             isChecked && {textDecorationLine: 'line-through'},
           ]}>
-          {cutTitle(title)}
+          {title}
         </Text>
         <Icons>
           <IconWrapper>
@@ -73,7 +79,7 @@ const PrayerItem: FC<PrayerItemProps> = ({title, prayerId, isChecked}) => {
             <Quantity>157</Quantity>
           </IconWrapper>
         </Icons>
-      </View>
+      </TouchableOpacity>
     </Swipeable>
   );
 };
@@ -84,13 +90,8 @@ type PrayerItemProps = {
   title: string;
   prayerId: number;
   isChecked: boolean;
+  onPress: () => void;
 };
-const Indicator = styled.View`
-  height: 22px;
-  width: 3px;
-  background-color: ${({theme}) => theme.colors.red};
-  margin-right: 15px;
-`;
 const IconWrapper = styled.View`
   display: flex;
   flex-direction: row;
@@ -144,5 +145,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#514d47',
     flex: 5,
+  },
+  indicator: {
+    height: 22,
+    width: 3,
+    backgroundColor: colors.red,
+    marginRight: 15,
   },
 });

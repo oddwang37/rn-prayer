@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import {Platform, Text, View, StyleSheet} from 'react-native';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 
@@ -10,9 +10,7 @@ const Header: FC<HeaderProps> = ({children}) => {
 
 export default Header;
 
-type HeaderProps = {
-  children: string;
-};
+type HeaderProps = PropsWithChildren<{}>;
 
 const styles = StyleSheet.create({
   text: {

@@ -17,7 +17,7 @@ export default HeaderButton;
 
 type HeaderButtonProps = {
   children: React.ReactElement;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const styles = StyleSheet.create({

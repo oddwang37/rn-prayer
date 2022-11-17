@@ -13,6 +13,7 @@ import {
 import {PrayersTabsStackParamList} from '../PrayersTabsStack';
 import {AddPrayerInput, Button, PrayerItem, Spinner} from '../../../components';
 import {Prayer} from '../../../store/ducks/prayers/types';
+import routes from '../../../constants/routes';
 
 const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
   const columnId = route.params.columnId;
@@ -35,12 +36,19 @@ const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
 
   const keyExtractor = (item: Prayer) => item.id.toString();
 
-  const renderItem = ({item}: {item: Prayer}) => (
-    <PrayerItem
-      title={item.title}
-      prayerId={item.id}
-      isChecked={item.checked}></PrayerItem>
-  );
+  const renderItem = ({item}: {item: Prayer}) => {
+    return (
+      <PrayerItem
+        title={item.title}
+        prayerId={item.id}
+        onPress={() =>
+          navigation.navigate(routes.prayerScreen, {prayerId: item.id})
+        }
+        isChecked={item.checked}
+      />
+    );
+  };
+
   return (
     <View style={styles.root}>
       <View style={styles.addPrayerWrapper}>

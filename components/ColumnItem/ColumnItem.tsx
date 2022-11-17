@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 import colors from '../../constants/colors';
@@ -13,10 +13,9 @@ const ColumnItem: FC<ColumnItem> = ({children, onPress}) => {
 
 export default ColumnItem;
 
-type ColumnItem = {
-  children: string;
+type ColumnItem = PropsWithChildren<{
   onPress: () => void;
-};
+}>;
 
 const styles = StyleSheet.create({
   item: {
