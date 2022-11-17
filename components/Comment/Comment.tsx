@@ -1,21 +1,24 @@
 import React, {FC} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 
+import dates, {Formats} from '../../services/dates';
 import colors from '../../constants/colors';
 
-const Comment: FC<CommentProps> = ({name, body}) => {
-  const date = '2 days ago';
-
+const Comment: FC<CommentProps> = ({name, body, date}) => {
   return (
     <View style={styles.root}>
       <View style={styles.avatarWrapper}>
         <Image source={require('../../assets/images/avatar.png')} />
       </View>
       <View style={styles.flexWrapper}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <View>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.body}>{body}</Text>
+        </View>
+        <Text style={styles.date}>
+          {dates.formatRelative(Date.parse(date))}
+        </Text>
       </View>
-      <Text style={styles.name}>{body}</Text>
     </View>
   );
 };
@@ -33,6 +36,9 @@ const styles = StyleSheet.create({
     padding: 15,
     display: 'flex',
     flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: colors.gray,
+    alignItems: 'center',
   },
   flexWrapper: {
     display: 'flex',
@@ -43,14 +49,15 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '500',
     color: colors.textColor,
   },
   body: {
-    fontSize: 18,
+    fontSize: 16,
   },
   date: {
     color: '#9C9C9C',
     marginLeft: 6,
+    marginTop: 2,
   },
 });

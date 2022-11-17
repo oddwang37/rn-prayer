@@ -1,5 +1,13 @@
 import React, {FC, useEffect} from 'react';
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 
@@ -12,61 +20,86 @@ import {Comment as CommentType} from '../../../store/ducks/comments/types';
 import {getAllComments} from '../../../store/ducks/comments/thunks';
 
 import {PlusSmall} from '../../../components/svg';
-import {PrayerInfo, Comment, Spinner} from '../../../components';
+import {
+  PrayerInfo,
+  Comment,
+  Spinner,
+  AddCommentInput,
+} from '../../../components';
+import {selectPrayerComments} from '../../../store/ducks/comments/selectors';
 
 const PrayerScreen: FC<PrayerProps> = ({route}) => {
   const prayer = useSelector((state: RootState) =>
     selectPrayerById(state, route.params.prayerId),
   );
-  const comments = useSelector((state: RootState) => state.comments.comments);
+  const comments = useSelector((state: RootState) =>
+    selectPrayerComments(state, route.params.prayerId),
+  );
   const isLoading = useSelector((state: RootState) => state.comments.isLoading);
   const dispatch = useAppDispatch();
 
   const renderItem = ({item}: {item: CommentType}) => (
-    <Comment name="Petr Ivanov" body="Vse kruto!!" date="213123123" />
+    <Comment name="Vladislav Selivanov" body={item.body} date={item.created} />
   );
 
   const keyExtractor = (item: CommentType) => item.id.toString();
 
   useEffect(() => {
-    dispatch(getAllComments());
+    dispatch(getAllComments()).unwrap();
   }, []);
 
   return (
-    <View style={styles.root}>
+    <>
       {isLoading ? (
         <Spinner />
       ) : (
         <>
-          <View style={styles.header}>
-            <Text style={styles.title}>{prayer?.title}</Text>
-          </View>
-          <View style={styles.lastPrayed}>
-            <View style={styles.indicator} />
-            <Text style={styles.lastPrayedText}>Last prayed 8 min ago</Text>
-          </View>
-          <PrayerInfo date={dates.sub(Date.now(), {days: 6})} />
-          <Text style={styles.heading}>Members</Text>
-          <View style={styles.membersWrapper}>
-            <View style={styles.memberItem}>
-              <Image source={require('../../../assets/images/avatar.png')} />
-            </View>
-            <View style={styles.memberItem}>
-              <Image source={require('../../../assets/images/avatar.png')} />
-            </View>
-            <View style={styles.addMember}>
-              <PlusSmall />
-            </View>
-          </View>
-          <Text style={styles.heading}>Comments</Text>
           <FlatList
+            ListHeaderComponent={
+              <KeyboardAvoidingView style={styles.root}>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'position' : undefined}
+                  style={styles.keyboardAvoiding}>
+                  <View style={styles.header}>
+                    <Text style={styles.title}>{prayer?.title}</Text>
+                  </View>
+                  <View style={styles.lastPrayed}>
+                    <View style={styles.indicator} />
+                    <Text style={styles.lastPrayedText}>
+                      Last prayed 8 min ago
+                    </Text>
+                  </View>
+                  <PrayerInfo date={dates.sub(Date.now(), {days: 6})} />
+                  <Text style={styles.heading}>Members</Text>
+                  <View style={styles.membersWrapper}>
+                    <View style={styles.memberItem}>
+                      <Image
+                        source={require('../../../assets/images/avatar.png')}
+                      />
+                    </View>
+                    <View style={styles.memberItem}>
+                      <Image
+                        source={require('../../../assets/images/avatar.png')}
+                      />
+                    </View>
+                    <View style={styles.addMember}>
+                      <PlusSmall />
+                    </View>
+                  </View>
+                  <Text style={styles.heading}>Comments</Text>
+                </KeyboardAvoidingView>
+              </KeyboardAvoidingView>
+            }
             data={comments}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
           />
+          <View style={styles.footer}>
+            <AddCommentInput prayerId={route.params.prayerId} />
+          </View>
         </>
       )}
-    </View>
+    </>
   );
 };
 
@@ -76,6 +109,9 @@ type PrayerProps = NativeStackScreenProps<ColumnStackParamList, 'PrayerScreen'>;
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
+  },
+  keyboardAvoiding: {
     flex: 1,
   },
   header: {
@@ -135,5 +171,10 @@ const styles = StyleSheet.create({
   },
   comments: {
     marginTop: 15,
+  },
+  footer: {
+    marginBottom: Platform.OS === 'ios' ? 6 : 0,
+    alignSelf: 'flex-end',
+    width: '100%',
   },
 });

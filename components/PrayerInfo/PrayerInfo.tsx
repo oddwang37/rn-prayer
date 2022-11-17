@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-import dates from '../../services/dates';
+import dates, {Formats} from '../../services/dates';
 import colors from '../../constants/colors';
 
 const PrayerInfo: FC<PrayerInfoProps> = ({date}) => {
@@ -14,7 +14,7 @@ const PrayerInfo: FC<PrayerInfoProps> = ({date}) => {
           </Text>
           <Text style={styles.infoItemSecondText}>Date added</Text>
           <Text style={styles.openedFor}>
-            Opened for {dates.formatDaysSinceDate(date)}
+            Opened for {dates.formatTimeSinceDate(date, [Formats.days])}
           </Text>
         </View>
         <View style={styles.infoItem}>

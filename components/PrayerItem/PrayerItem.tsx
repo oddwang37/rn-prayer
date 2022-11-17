@@ -23,9 +23,6 @@ const PrayerItem: FC<PrayerItemProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const cutTitle = (title: string) =>
-    title.length > 17 ? title.slice(0, 17) + '...' : title;
-
   const onPressDelete = async () => {
     try {
       await dispatch(deletePrayer(prayerId)).unwrap();
@@ -62,7 +59,7 @@ const PrayerItem: FC<PrayerItemProps> = ({
         style={styles.root}
         activeOpacity={0.6}
         onPress={onPress}>
-        <Indicator />
+        <View style={styles.indicator} />
         <Checkbox isChecked={isChecked} onChange={onChangeCheckbox} />
         <Text
           numberOfLines={1}
@@ -70,7 +67,7 @@ const PrayerItem: FC<PrayerItemProps> = ({
             styles.title,
             isChecked && {textDecorationLine: 'line-through'},
           ]}>
-          {cutTitle(title)}
+          {title}
         </Text>
         <Icons>
           <IconWrapper>
@@ -95,12 +92,6 @@ type PrayerItemProps = {
   isChecked: boolean;
   onPress: () => void;
 };
-const Indicator = styled.View`
-  height: 22px;
-  width: 3px;
-  background-color: ${({theme}) => theme.colors.red};
-  margin-right: 15px;
-`;
 const IconWrapper = styled.View`
   display: flex;
   flex-direction: row;
@@ -154,5 +145,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#514d47',
     flex: 5,
+  },
+  indicator: {
+    height: 22,
+    width: 3,
+    backgroundColor: colors.red,
+    marginRight: 15,
   },
 });

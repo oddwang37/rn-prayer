@@ -7,19 +7,29 @@ import {
   formatDuration,
 } from 'date-fns';
 
+export enum Formats {
+  seconds = 'seconds',
+  minutes = 'minutes',
+  hours = 'hours',
+  days = 'days',
+  weeks = 'weeks',
+  months = 'months',
+  years = 'years',
+}
+
 class Dates {
-  sub(date: Date, duration: Duration) {
+  sub(date: Date | number, duration: Duration) {
     return sub(date, duration);
   }
-  formatToMonthDDYYYY(date: Date) {
+  formatToMonthDDYYYY(date: Date | number) {
     return format(date, 'MMMM dd yyyy');
   }
-  formatRelative(date: Date) {
+  formatRelative(date: Date | number) {
     return formatRelative(date, Date.now());
   }
-  formatDaysSinceDate(date: Date) {
+  formatTimeSinceDate(date: Date | number, format: Formats[]) {
     const durationFromDate = intervalToDuration({start: date, end: Date.now()});
-    return formatDuration(durationFromDate, {format: ['days']});
+    return formatDuration(durationFromDate, {format});
   }
 }
 

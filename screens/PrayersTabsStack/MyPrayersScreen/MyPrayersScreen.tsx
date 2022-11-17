@@ -36,16 +36,18 @@ const MyPrayersScreen: FC<MyPrayersProps> = ({navigation, route}) => {
 
   const keyExtractor = (item: Prayer) => item.id.toString();
 
-  const renderItem = ({item}: {item: Prayer}) => (
-    <PrayerItem
-      title={item.title}
-      prayerId={item.id}
-      onPress={() =>
-        navigation.navigate(routes.prayerScreen, {prayerId: item.id})
-      }
-      isChecked={item.checked}
-    />
-  );
+  const renderItem = ({item}: {item: Prayer}) => {
+    return (
+      <PrayerItem
+        title={item.title}
+        prayerId={item.id}
+        onPress={() =>
+          navigation.navigate(routes.prayerScreen, {prayerId: item.id})
+        }
+        isChecked={item.checked}
+      />
+    );
+  };
 
   return (
     <View style={styles.root}>
