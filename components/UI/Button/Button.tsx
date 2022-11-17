@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import {ActivityIndicator} from 'react-native';
 import {Text} from 'react-native';
 import styled from 'styled-components/native';
@@ -19,11 +19,10 @@ const Button: FC<ButtonProps> = ({children, onPress, isLoading}) => {
 
 export default Button;
 
-type ButtonProps = {
-  children: string;
+type ButtonProps = PropsWithChildren<{
   onPress: () => void;
   isLoading?: boolean;
-};
+}>;
 
 const Root = styled.TouchableHighlight`
   background-color: #bfb393;

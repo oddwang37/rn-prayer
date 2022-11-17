@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
+import dates from '../../services/dates';
 import colors from '../../constants/colors';
 
-const PrayerInfo = () => {
+const PrayerInfo: FC<PrayerInfoProps> = ({date}) => {
   return (
     <>
       <View style={styles.infoWrapper}>
         <View style={[styles.infoItem, {paddingBottom: 8}]}>
-          <Text style={styles.infoItemTitle}>July 25 2017</Text>
+          <Text style={styles.infoItemTitle}>
+            {dates.formatToMonthDDYYYY(date)}
+          </Text>
           <Text style={styles.infoItemSecondText}>Date added</Text>
-          <Text style={styles.openedFor}>Opened for 4 days</Text>
+          <Text style={styles.openedFor}>
+            Opened for {dates.formatDaysSinceDate(date)}
+          </Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoItemTitle}>123</Text>
@@ -33,6 +38,9 @@ const PrayerInfo = () => {
 
 export default PrayerInfo;
 
+type PrayerInfoProps = {
+  date: Date;
+};
 const styles = StyleSheet.create({
   infoWrapper: {
     display: 'flex',

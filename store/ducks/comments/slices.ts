@@ -41,13 +41,13 @@ const commentsSlice = createSlice({
       // action.payload field "column" returns all column info
       const {checked, title, description, id, column} = action.payload;
       const {id: columnId} = column;
-      state.comments.push({
-        title,
+      /*state.comments.push({
+        body,
         description,
         columnId,
         id,
         commentsIds: [],
-      });
+      });*/
     });
     builder.addCase(createComment.rejected, state => {
       state.isLoading = false;

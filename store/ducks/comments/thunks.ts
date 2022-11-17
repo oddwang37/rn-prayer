@@ -57,7 +57,7 @@ export const createComment = createAsyncThunk(
       const requestBody: CreateCommentReq = {
         body: commentInfo.body,
         prayerId: commentInfo.prayerId,
-        created: Date.now().toString();
+        created: Date.now().toString(),
       };
       const result = await http.post(API.createComment, requestBody);
       return result.data;

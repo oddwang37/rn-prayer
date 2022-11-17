@@ -1,49 +1,71 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 
-import {selectPrayerById} from '../../../store/ducks/prayers/selectors';
 import {ColumnStackParamList} from '../ColumnStack';
 import colors from '../../../constants/colors';
-import {RootState} from '../../../store/store';
-import {PrayerInfo, Comment} from '../../../components';
+import dates from '../../../services/dates';
+import {selectPrayerById} from '../../../store/ducks/prayers/selectors';
+import {RootState, useAppDispatch} from '../../../store/store';
+import {Comment as CommentType} from '../../../store/ducks/comments/types';
+import {getAllComments} from '../../../store/ducks/comments/thunks';
+
 import {PlusSmall} from '../../../components/svg';
-import {Column} from '../../../store/ducks/columns/types';
+import {PrayerInfo, Comment, Spinner} from '../../../components';
 
 const PrayerScreen: FC<PrayerProps> = ({route}) => {
   const prayer = useSelector((state: RootState) =>
     selectPrayerById(state, route.params.prayerId),
   );
+  const comments = useSelector((state: RootState) => state.comments.comments);
+  const isLoading = useSelector((state: RootState) => state.comments.isLoading);
+  const dispatch = useAppDispatch();
 
-  /*const renderItem = ({item}) => <Comment name="Petr Ivanov" body="Vse kruto!!" date="213123123" />;
+  const renderItem = ({item}: {item: CommentType}) => (
+    <Comment name="Petr Ivanov" body="Vse kruto!!" date="213123123" />
+  );
 
-  const keyExtractor = (item: Column) => item.id;
-  */
+  const keyExtractor = (item: CommentType) => item.id.toString();
+
+  useEffect(() => {
+    dispatch(getAllComments());
+  }, []);
 
   return (
     <View style={styles.root}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{prayer?.title}</Text>
-      </View>
-      <View style={styles.lastPrayed}>
-        <View style={styles.indicator} />
-        <Text style={styles.lastPrayedText}>Last prayed 8 min ago</Text>
-      </View>
-      <PrayerInfo />
-      <Text style={styles.heading}>Members</Text>
-      <View style={styles.membersWrapper}>
-        <View style={styles.memberItem}>
-          <Image source={require('../../../assets/images/avatar.png')} />
-        </View>
-        <View style={styles.memberItem}>
-          <Image source={require('../../../assets/images/avatar.png')} />
-        </View>
-        <View style={styles.addMember}>
-          <PlusSmall />
-        </View>
-      </View>
-      <Text style={styles.heading}>Comments</Text>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <View style={styles.header}>
+            <Text style={styles.title}>{prayer?.title}</Text>
+          </View>
+          <View style={styles.lastPrayed}>
+            <View style={styles.indicator} />
+            <Text style={styles.lastPrayedText}>Last prayed 8 min ago</Text>
+          </View>
+          <PrayerInfo date={dates.sub(Date.now(), {days: 6})} />
+          <Text style={styles.heading}>Members</Text>
+          <View style={styles.membersWrapper}>
+            <View style={styles.memberItem}>
+              <Image source={require('../../../assets/images/avatar.png')} />
+            </View>
+            <View style={styles.memberItem}>
+              <Image source={require('../../../assets/images/avatar.png')} />
+            </View>
+            <View style={styles.addMember}>
+              <PlusSmall />
+            </View>
+          </View>
+          <Text style={styles.heading}>Comments</Text>
+          <FlatList
+            data={comments}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+          />
+        </>
+      )}
     </View>
   );
 };
@@ -53,7 +75,9 @@ export default PrayerScreen;
 type PrayerProps = NativeStackScreenProps<ColumnStackParamList, 'PrayerScreen'>;
 
 const styles = StyleSheet.create({
-  root: {},
+  root: {
+    flex: 1,
+  },
   header: {
     backgroundColor: colors.primaryColor,
     paddingTop: 12,
@@ -89,6 +113,7 @@ const styles = StyleSheet.create({
     color: colors.blue,
     marginTop: 20,
     marginLeft: 15,
+    fontWeight: '600',
   },
   membersWrapper: {
     display: 'flex',

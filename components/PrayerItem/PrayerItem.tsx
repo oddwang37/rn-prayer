@@ -65,6 +65,7 @@ const PrayerItem: FC<PrayerItemProps> = ({
         <Indicator />
         <Checkbox isChecked={isChecked} onChange={onChangeCheckbox} />
         <Text
+          numberOfLines={1}
           style={[
             styles.title,
             isChecked && {textDecorationLine: 'line-through'},
