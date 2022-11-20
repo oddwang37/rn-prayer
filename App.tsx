@@ -8,36 +8,39 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useEffect} from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
-import styled from 'styled-components/native';
+import {NavigationContainer} from '@react-navigation/native';
+import {ThemeProvider} from 'styled-components';
+import {Provider} from 'react-redux';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
+import {store} from './store/store';
 
-const App = () => {
+import {RootStack} from './screens/RootStack';
+import userSession from './services/userSession';
 
-  return (
-    <NavigationContainer>
-      <Root>
-        <Text>
-          Some some text
-        </Text>
-      </Root>
-    </NavigationContainer>
-  );
+const theme = {
+  colors: {
+    textColor: '#514D47',
+    primaryColor: '#BFB393',
+    secondaryColor: '#72A8BC',
+    red: '#AC5253',
+  },
 };
 
-const Root = styled.View`
-  background-color:  red;
-`
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <GestureHandlerRootView style={{flex: 1}}>
+            <RootStack />
+          </GestureHandlerRootView>
+        </NavigationContainer>
+      </Provider>
+    </ThemeProvider>
+  );
+};
 
 export default App;
